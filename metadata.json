@@ -1,0 +1,6 @@
+{
+  "name": "Kotiynet Services (Котинет Услуги)",
+  "description": "Официальный государственный портал Котинетинской Федерации. Единый реестр государственных услуг, Национальный Банк и геополитический статус.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

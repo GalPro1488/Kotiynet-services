@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Diagnostics / test collection
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+
+    // Citizen accounts in Kotiynet Federation
+    match /users/{userId} {
+      allow read, write: if true;
+
+      // Subcollection for citizen transactions
+      match /transactions/{transactionId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Citizen Messenger Chats & Messages
+    match /chats/{chatId} {
+      allow read, write: if true;
+
+      match /messages/{messageId} {
+        allow read, write: if true;
+      }
+    }
+  }
+}

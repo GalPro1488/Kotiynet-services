@@ -1,0 +1,143 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Citizen account and profile in Kotiynet Federation registry",
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "Phone number used for authentication"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name (ФИО) of the citizen"
+        },
+        "birthDate": {
+          "type": "string",
+          "description": "Date of birth (ДД.ММ.ГГГГ)"
+        },
+        "citizenId": {
+          "type": "string",
+          "description": "Unique sovereign citizen registry ID (KF-XXXXX)"
+        },
+        "balance": {
+          "type": "number",
+          "description": "Digital wallet balance in K$"
+        },
+        "salary": {
+          "type": "number",
+          "description": "Monthly government or commercial salary in K$"
+        },
+        "debt": {
+          "type": "number",
+          "description": "Current tax or administrative debt in K$"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account registration ISO timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last profile update timestamp"
+        }
+      },
+      "required": ["phone", "fullName", "birthDate"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial movement in citizen digital wallet",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Transaction title or description"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Transaction amount in K$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["credit", "debit"],
+          "description": "Transaction operation type"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category (reparations, tax, salary, transfer)"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp of transaction"
+        }
+      },
+      "required": ["title", "amount", "type", "timestamp"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "Messenger dialogue between registered citizens",
+      "type": "object",
+      "properties": {
+        "participants": {
+          "type": "array",
+          "description": "List of participant user IDs"
+        },
+        "participantPhones": {
+          "type": "array",
+          "description": "List of participant phone numbers"
+        },
+        "lastMessage": {
+          "type": "string",
+          "description": "Preview of last message"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of last message"
+        }
+      },
+      "required": ["participants", "participantPhones"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Individual message in a citizen dialogue",
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "type": "string",
+          "description": "UID of the sender"
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Name of the sender"
+        },
+        "text": {
+          "type": "string",
+          "description": "Message content"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Message dispatch timestamp"
+        }
+      },
+      "required": ["senderId", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Registered citizen documents and balance"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Citizen wallet transaction log"
+    },
+    "/chats/{chatId}": {
+      "schema": "Chat",
+      "description": "Citizen dialogue metadata"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages inside citizen chat"
+    }
+  }
+}
